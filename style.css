@@ -1,0 +1,155 @@
+/* Style global */
+body {
+    font-family: "Georgia", serif;
+    background-color: #1b1b1b; /* Fond sombre pour un thème horrifique */
+    color: #d0d0d0; /* Gris clair pour le texte */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background: #2c2c2c; /* Gris foncé presque noir */
+    color: #b91f3d; /* Rouge sang pour le texte */
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7); /* Ombre prononcée */
+}
+
+header h1 {
+    font-family: "Times New Roman", serif;
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 3px;
+    color: #b91f3d;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Ombre noire pour un effet plus menaçant */
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: #b91f3d;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-family: 'Creepster', cursive; /* Police typographique plus effrayante */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Ombre autour du texte */
+}
+
+header nav ul li a:hover {
+    color: #f5e7d0; /* Change au survol */
+}
+
+/* Section Intro */
+
+/* Section Films */
+/* Section Films */
+.films {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.film-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 films par ligne */
+    gap: 30px;
+    justify-items: center;
+}
+
+.film-card {
+    background-color: #222222; /* Fond noir pour les cartes */
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #b91f3d; /* Bordure rouge sang */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.8); /* Ombre marquée */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 300px; /* Fixe la largeur de la card */
+    height: 450px; /* Fixe la hauteur de la card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Permet une distribution uniforme */
+}
+
+.film-card img {
+    width: 100%;
+    height: auto; /* Laisse l'image se redimensionner en hauteur */
+    aspect-ratio: 3 / 4; /* Garantie un ratio de 3:4 (portrait) */
+    object-fit: cover; /* S'assure que l'image remplit l'espace sans déformation */
+    border-radius: 8px;
+    border: 3px solid #b91f3d; /* Bordure rouge sang pour les images */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out;
+}
+
+.film-card:hover {
+    transform: scale(1.01); /* Zoom léger */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.9); /* Ombre plus marquée */
+}
+
+.film-card img:hover {
+    transform: scale(1.01); /* Zoom plus intense sur l'image */
+}
+
+/* Typographie horrifique pour les titres */
+.film-card h3 {
+    color: #b91f3d; /* Titre en rouge sang */
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-family: 'Creepster', cursive; /* Police effrayante */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 10px; /* Assure un petit espace entre le titre et l'image */
+}
+
+
+/* Pied de page */
+footer {
+    background: #2c2c2c;
+    color: #f5e7d0;
+    text-align: center;
+    padding: 20px;
+    font-size: 1em;
+    border-top: 3px solid #b91f3d;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Styles de pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pagination-arrow {
+    color: #b91f3d; /* Rouge sang pour les flèches */
+    font-size: 2em; /* Taille des flèches */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Ombre subtile pour les flèches */
+}
+
+.pagination-arrow:hover {
+    color: #f5e7d0; /* Changer la couleur au survol */
+}
+
+.pagination span {
+    font-size: 1.2em;
+    color: #f5e7d0;
+    font-family: 'Creepster', cursive; /* Police typographique effrayante */
+}
