@@ -9,6 +9,7 @@ function afficherHeader($pageTitle = 'Ciné Macabre') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>' . htmlspecialchars($pageTitle) . '</title>
+    <link rel="icon" href="https://static.thenounproject.com/png/79658-200.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
 </head>
