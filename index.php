@@ -1,57 +1,54 @@
 <?php
-// Inclure le fichier commun pour l'en-tête et le pied de page
+// Inclure les fichiers nécessaires
 include 'common.php';
-
-// Vous pouvez également inclure les fichiers pour la connexion à la base de données et les requêtes
 include 'data/connBD.php';
 include 'data/requetes.php';
 
-// Logique spécifique à cette page (comme la pagination ou la récupération des films)
-$films_par_page = 18;
-$total_films = count(getFilms());
-$total_pages = ceil($total_films / $films_par_page);
+// Logique spécifique pour la page d'accueil
 
-$page_actuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-if ($page_actuelle < 1) {
-    $page_actuelle = 1;
-}
+// 1. Récupérer le film le plus récent
+$film_recent = getFilmRecents();  // Fonction à créer pour récupérer le film le plus récent
 
-$offset = ($page_actuelle - 1) * $films_par_page;
-$films = getFilmsPaginated($offset, $films_par_page);
+// 2. Récupérer les 3 genres les plus populaires
+$top_genres = getTopGenres();  // Fonction à créer pour récupérer les 3 genres avec le plus de films
 ?>
 
+<?php afficherHeader(); ?>
 
-    <?php afficherHeader(); ?>  <!-- Appel de la fonction afficherHeader() -->
-
-    <main>
-        <section class="films horror-theme">
-            <div class="film-cards-container">
-                <?php foreach ($films as $film): ?>
-                    <div class="film-card">
-                        <a href="details.php?id=<?= $film['id']; ?>">
-                            <img src="<?= htmlspecialchars($film['image_url']); ?>" alt="<?= htmlspecialchars($film['titre']); ?>">
-                        </a>
-                        <h3><?= htmlspecialchars($film['titre']); ?></h3>
-                    </div>
-                <?php endforeach; ?>
+<!-- Section Film le Plus Récent -->
+<section class="recent-film">
+    <h2>Film Sorti le Plus Récemment</h2>
+    <div class="film-recent">
+        <div class="film-recent-image">
+            <a href="details.php?id=<?= $film_recent['id']; ?>">
+                <img src="<?= htmlspecialchars($film_recent['image_url']); ?>" alt="<?= htmlspecialchars($film_recent['titre']); ?>">
+            </a>
+        </div>
+        <div class="film-recent-content">
+            <h3><?= htmlspecialchars($film_recent['titre']); ?></h3>
+            <p><?= htmlspecialchars($film_recent['description']); ?></p>
+            <div class="genres">
+                <!-- Affichage des genres (si applicable) -->
             </div>
-        </section>
-        <div class="pagination">
-        <?php if ($page_actuelle > 1): ?>
-            <a href="?page=<?= $page_actuelle - 1; ?>" class="pagination-arrow">&#8592;</a>
-        <?php endif; ?>
-
-        <span>Page <?= $page_actuelle; ?> sur <?= $total_pages; ?></span>
-
-        <?php if ($page_actuelle < $total_pages): ?>
-            <a href="?page=<?= $page_actuelle + 1; ?>" class="pagination-arrow"> &#8594;</a>
-        <?php endif; ?>
+        </div>
     </div>
-    </main>
+</section>
 
-    <?php afficherFooter(); ?>  <!-- Appel de la fonction afficherFooter() -->
 
-    <script src="script.js"></script>
+<!-- Section des 3 Genres Populaires -->
+<section class="top-genres">
+    <h2>Les 3 Genres les Plus Populaires</h2>
+    <div class="genres-container">
+        <?php foreach ($top_genres as $genre): ?>
+            <div class="genre-card">
+                <h3><?= htmlspecialchars($genre['nom']); ?></h3>
+                <?php echo '<a href="filmsGenre.php?genre=' . $genre['id'] . '" class="genre-button">' . htmlspecialchars($genre['nom']) . '</a>'; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<?php afficherFooter(); ?>
+<script src="script.js"></script>
 </body>
-
 </html>

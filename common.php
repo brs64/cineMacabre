@@ -18,21 +18,16 @@ function afficherHeader($pageTitle = 'Ciné Macabre') {
     <header>
         <div class="container">
             <div class="header-left">
-                <h1>' . htmlspecialchars($pageTitle) . '</h1>
+                <h1><a href="index.php" class="logo-link">Ciné Macabre</a></h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.php">Films</a></li>
+                    <li><a href="films.php">Films</a></li>
                     <li><a href="genres.php">Genres</a></li>
                 </ul>
             </nav>
-            <div class="search-container">
-                <form action="search.php" method="GET">
-                    <input type="text" name="query" placeholder="Rechercher..." class="search-bar" id="search-bar" value="' . (isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '') . '">
-                    <button type="submit" style="display:none;">Rechercher</button>
-                </form>
-            </div>
         </div>
+        
     </header>';
 }
 

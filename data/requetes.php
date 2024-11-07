@@ -94,5 +94,26 @@ function getGenreById($genre_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getFilmRecents() {
+    global $pdo;  // Utilisation de la connexion PDO
+    $query = "SELECT * FROM films ORDER BY dateDeSortie DESC LIMIT 1";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);  // Utilisation de fetch() car on attend un seul film
+}
 
-
+function getTopGenres() {
+    global $pdo;  // Utilisation de la connexion PDO
+    $query = "
+        SELECT g.id, g.nom, COUNT(fg.film_id) AS genre_count
+        FROM genres g
+        JOIN film_genres fg ON g.id = fg.genre_id
+        GROUP BY g.id
+        ORDER BY genre_count DESC
+        LIMIT 3
+    ";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $genres;
+}

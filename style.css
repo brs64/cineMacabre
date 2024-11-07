@@ -6,15 +6,14 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column; /* Les éléments enfants (main et footer) seront alignés en colonne */
-    min-height: 100vh; /* Assure que le body occupe au moins toute la hauteur de la fenêtre */
+    flex-direction: column; 
+    min-height: 100vh;
 }
 
 main {
     flex-grow: 1; /* Le contenu principal va remplir l'espace disponible */
 }
 
-/* Le footer reste inchangé, mais maintenant il sera poussé vers le bas */
 footer {
     background: #2c2c2c;
     color: #f5e7d0;
@@ -33,89 +32,243 @@ footer {
 
 /* ------------------------- Header ------------------------- */
 header {
-    background: #2c2c2c; /* Gris foncé presque noir */
-    color: #b91f3d; /* Rouge sang pour le texte */
-    padding: 20px 0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7); /* Ombre prononcée */
+    background: #2c2c2c;
+    color: #b91f3d;
+    padding: 5px 0; /* Réduction de l'épaisseur */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* Conteneur principal */
 header .container {
     display: flex;
-    justify-content: space-between; /* Distribuer les éléments entre gauche et droite */
-    align-items: center; /* Aligner verticalement */
+    justify-content: space-between;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Colonne à gauche pour "Ciné Macabre" */
-header .header-left {
-    flex: 0 1 auto; /* Prendre l'espace nécessaire, sans s'étendre */
-}
-
 header h1 {
-    font-family: "Times New Roman", serif;
-    font-size: 3em;
-    font-weight: bold;
     margin: 0;
-    letter-spacing: 3px;
-    color: #b91f3d;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Ombre noire pour un effet plus menaçant */
+    font-size: 2.5em;
 }
 
-/* Navbar au centre */
-header nav {
-    flex-grow: 1; /* Pour que la navbar prenne l'espace restant au centre */
-    display: flex;
-    justify-content: center; /* Centrer horizontalement les éléments de navigation */
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-header nav ul li a {
+.logo-link {
     color: #b91f3d;
     text-decoration: none;
-    font-size: 1.2em;
-    font-family: 'Creepster', cursive; /* Police typographique plus effrayante */
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Ombre autour du texte */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
-header nav ul li a:hover {
-    color: #f5e7d0; /* Change au survol */
+.logo-link:hover {
+    color: #f5e7d0;
 }
 
-/* Barre de recherche à droite */
-.search-container {
+nav ul {
     display: flex;
-    align-items: center;
+    list-style: none;
+    gap: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    color: #b91f3d;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-family: 'Creepster', cursive;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+nav ul li a:hover {
+    color: #f5e7d0;
+}
+
+/* ------------------------- Barre de recherche ------------------------- */
+.search-container {
+    margin: 15px auto;
+    text-align: center;
 }
 
 .search-bar {
     padding: 8px 15px;
     font-size: 1em;
     border-radius: 20px;
-    border: 2px solid #b91f3d; /* Bordure rouge sang */
-    background-color: #222222; /* Fond sombre */
+    border: 2px solid #b91f3d;
+    background-color: #222222;
     color: #d0d0d0;
     transition: border-color 0.3s ease-in-out;
+    width:150%;
 }
 
 .search-bar:focus {
     outline: none;
-    border-color: #f5e7d0; /* Bordure jaune pâle au focus */
-    background-color: #333333; /* Légèrement plus clair au focus */
+    border-color: #f5e7d0;
+    background-color: #333333;
 }
 
 .search-bar::placeholder {
     color: #d0d0d0;
+}
+
+/* ------------------------- Section Film le Plus Récent ------------------------- */
+/* Section Film le Plus Récent */
+.recent-film {
+    display: flex;
+    flex-direction: column; /* Le titre est maintenant au-dessus de l'image */
+    align-items: center; /* Centrer tout le contenu */
+    padding: 0 20px; /* Retirer le padding du haut */
+    background-color: #222222;
+    margin: 20px 0; /* Réduire l'espacement autour de la carte */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    max-height: 600px; /* Limiter la hauteur de la carte */
+}
+
+.recent-film h2 {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5em;
+    color: #b91f3d;
+    margin: 0; /* Supprimer la marge du haut */
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px; /* Ajouter un espacement sous le titre */
+}
+
+.film-recent {
+    display: flex;
+    justify-content: flex-start; /* Alignement horizontal de l'image à gauche */
+    align-items: flex-start;
+    gap: 20px; /* Réduire l'espacement entre l'image et les infos */
+    max-width: 1000px;
+    width: 100%;
+    flex-wrap: wrap; /* Permettre aux éléments de se réorganiser si la largeur est trop grande */
+}
+
+.film-recent .film-recent-image {
+    flex: 0 0 250px; /* Réduire la taille de l'image à 250px */
+}
+
+.film-recent .film-recent-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    flex: 1; /* Le contenu textuel prend le reste de l'espace */
+}
+
+/* Règles supplémentaires pour l'image et le contenu */
+.film-recent img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out;
+}
+
+.film-recent img:hover {
+    transform: scale(1.05);
+}
+
+.film-recent h3 {
+    font-family: 'Creepster', cursive;
+    font-size: 2em;
+    color: #b91f3d;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.film-recent p {
+    font-size: 1.1em;
+    color: #d0d0d0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.film-recent .genres {
+    margin-top: 20px;
+}
+
+.film-recent .genres a {
+    background-color: #b91f3d;
+    color: #f5e7d0;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.film-recent .genres a:hover {
+    background-color: #f5e7d0;
+    color: #b91f3d;
+    transform: scale(1.1);
+}
+
+
+/* ------------------------- Section Top Genres ------------------------- */
+.top-genres {
+    background-color: #222222;
+    padding: 40px 20px;
+    margin: 40px 0;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+.top-genres h2 {
+    color: #b91f3d;
+    font-family: 'Creepster', cursive;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.genres-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.genre-card {
+    background-color: #333;
+    color: #d0d0d0;
+    border: 2px solid #b91f3d;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.7);
+}
+
+.genre-card:hover {
+    transform: scale(1.05);
+    background-color: #b91f3d;
+    color: #f5e7d0;
+}
+
+.genre-card h3 {
+    font-size: 1.5em;
+    font-family: 'Creepster', cursive;
+    color: #b91f3d;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.genre-card a {
+    font-size: 1.1em;
+    color: #b91f3d;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.genre-card a:hover {
+    color: #f5e7d0;
+    text-decoration: underline;
 }
 
 
