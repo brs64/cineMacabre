@@ -33,8 +33,8 @@ $films = getFilmsPaginated($offset, $films_par_page);
             <div class="film-cards-container">
                 <?php foreach ($films as $film): ?>
                     <div class="film-card">
-                        <a href="details.php?id=<?= $film['id']; ?>">
-                            <img src="<?= htmlspecialchars($film['image_url']); ?>" alt="<?= htmlspecialchars($film['titre']); ?>">
+                        <a href="details.php?id=<?= $film['id_film']; ?>">
+                            <img src="<?= htmlspecialchars($film['url_image']); ?>" alt="<?= htmlspecialchars($film['titre']); ?>">
                         </a>
                         <h3><?= htmlspecialchars($film['titre']); ?></h3>
                     </div>

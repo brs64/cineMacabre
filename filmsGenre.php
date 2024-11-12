@@ -25,9 +25,9 @@ if ($genre_id > 0) {
         echo '<div class="films-grid">';
         foreach ($films as $film) {
             echo '<div class="film-item">
-                    <img src="' . htmlspecialchars($film['image_url']) . '" alt="' . htmlspecialchars($film['titre']) . '" class="film-image">
+                    <img src="' . htmlspecialchars($film['url_image']) . '" alt="' . htmlspecialchars($film['titre']) . '" class="film-image">
                     <h3>' . htmlspecialchars($film['titre']) . '</h3>
-                    <a href="details.php?id=' . $film['id'] . '">Voir les détails</a>
+                    <a href="details.php?id=' . $film['id_film'] . '">Voir les détails</a>
                   </div>';
         }
         echo '</div>';

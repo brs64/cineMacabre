@@ -13,6 +13,7 @@ function getFilms() {
     
     return $films;
 }
+
 function getFilmsPaginated($offset, $limit) {
     global $pdo; // Utilise la connexion globale
 
@@ -46,7 +47,7 @@ function searchFilms($query) {
 function getFilmById($id) {
     // Connexion à la base de données
     global $pdo;
-    $sql = "SELECT * FROM films WHERE id = :id";
+    $sql = "SELECT * FROM films WHERE id_film = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
@@ -57,18 +58,28 @@ function getFilmById($id) {
 // Fonction pour récupérer les genres d'un film donné
 function getGenresForFilm($film_id) {
     global $pdo; // Assure-toi que $pdo est ta connexion à la base de données
-    $sql = "SELECT g.nom FROM genres g 
-            JOIN film_genres fg ON g.id = fg.genre_id 
-            WHERE fg.film_id = :film_id";
+
+    // Requête SQL pour obtenir les noms des genres à partir de l'id d'un film
+    $sql = "SELECT g.nom 
+            FROM genres g
+            JOIN film_genre fg ON g.id_genre = fg.id_genre
+            WHERE fg.id_film = :film_id";
+
+    // Préparation de la requête
     $stmt = $pdo->prepare($sql);
+
+    // Exécution de la requête avec le paramètre passé
     $stmt->execute(['film_id' => $film_id]);
+
+    // Retourne les résultats sous forme de tableau associatif
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 // Fonction pour récupérer tous les genres
 function getGenres() {
     global $pdo; // Assurez-vous que vous avez une connexion à la base de données via $pdo
-    $query = 'SELECT id, nom FROM genres'; // Suppose que vous avez une table genres avec un id et un nom
+    $query = 'SELECT id_genre, nom FROM genres'; // Suppose que vous avez une table genres avec un id_genre et un nom
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -77,7 +88,7 @@ function getGenres() {
 // Fonction pour récupérer les films par genre
 function getFilmsByGenre($genre_id) {
     global $pdo; // Connexion à la base de données
-    $sql = 'SELECT * FROM films WHERE id IN (SELECT film_id FROM film_genres WHERE genre_id = :genre_id)';
+    $sql = 'SELECT * FROM films WHERE id_film IN (SELECT id_film FROM film_genre WHERE id_genre = :genre_id)';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':genre_id', $genre_id, PDO::PARAM_INT);
     $stmt->execute();
@@ -87,7 +98,7 @@ function getFilmsByGenre($genre_id) {
 // Fonction pour récupérer un genre par son ID
 function getGenreById($genre_id) {
     global $pdo; // Connexion à la base de données
-    $sql = 'SELECT * FROM genres WHERE id = :genre_id';
+    $sql = 'SELECT * FROM genres WHERE id_genre = :genre_id';
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':genre_id', $genre_id, PDO::PARAM_INT);
     $stmt->execute();
@@ -96,7 +107,7 @@ function getGenreById($genre_id) {
 
 function getFilmRecents() {
     global $pdo;  // Utilisation de la connexion PDO
-    $query = "SELECT * FROM films ORDER BY dateDeSortie DESC LIMIT 1";
+    $query = "SELECT * FROM films ORDER BY date_sortie DESC LIMIT 1";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);  // Utilisation de fetch() car on attend un seul film
@@ -105,10 +116,10 @@ function getFilmRecents() {
 function getTopGenres() {
     global $pdo;  // Utilisation de la connexion PDO
     $query = "
-        SELECT g.id, g.nom, COUNT(fg.film_id) AS genre_count
+        SELECT g.id_genre, g.nom, COUNT(fg.id_film) AS genre_count
         FROM genres g
-        JOIN film_genres fg ON g.id = fg.genre_id
-        GROUP BY g.id
+        JOIN film_genre fg ON g.id_genre = fg.id_genre
+        GROUP BY g.id_genre
         ORDER BY genre_count DESC
         LIMIT 3
     ";
@@ -117,3 +128,4 @@ function getTopGenres() {
     $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $genres;
 }
+

@@ -13,7 +13,7 @@ echo '<main><div class="container"><h2>Liste des genres</h2><div class="genres-l
 
 // Afficher chaque genre sous forme de bouton
 foreach ($genres as $genre) {
-    echo '<a href="filmsGenre.php?genre=' . $genre['id'] . '" class="genre-button">' . htmlspecialchars($genre['nom']) . '</a>';
+    echo '<a href="filmsGenre.php?genre=' . $genre['id_genre'] . '" class="genre-button">' . htmlspecialchars($genre['nom']) . '</a>';
 }
 
 echo '</div></div></main>';
