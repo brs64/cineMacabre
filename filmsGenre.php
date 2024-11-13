@@ -8,7 +8,22 @@ $genre_id = isset($_GET['genre']) ? (int) $_GET['genre'] : 0;
 
 if ($genre_id > 0) {
     // Récupérer les films associés au genre
-    $films = getFilmsByGenre($genre_id); // Supposons que `getFilmsByGenre` récupère les films par genre
+    // Nous comptons d'abord le nombre total de films pour ce genre
+    $total_films = count(getFilmsByGenre($genre_id));
+    $films_par_page = 20; // Nombre de films à afficher par page
+    $total_pages = ceil($total_films / $films_par_page);
+
+    // Récupérer la page actuelle à partir de l'URL (ou page 1 par défaut)
+    $page_actuelle = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+    if ($page_actuelle < 1) {
+        $page_actuelle = 1;
+    }
+
+    // Calculer l'offset pour la pagination
+    $offset = ($page_actuelle - 1) * $films_par_page;
+
+    // Récupérer les films pour la page actuelle
+    $films = getFilmsByGenrePaginated($genre_id, $offset, $films_par_page); 
 
     // Afficher l'en-tête
     afficherHeader('Films par genre');
@@ -25,15 +40,29 @@ if ($genre_id > 0) {
         echo '<div class="films-grid">';
         foreach ($films as $film) {
             echo '<div class="film-item">
-                    <img src="' . htmlspecialchars($film['url_image']) . '" alt="' . htmlspecialchars($film['titre']) . '" class="film-image">
+                    <a href="details.php?id='. $film['id_film'].'">
+                            <img src="'.htmlspecialchars($film['url_image']).'" alt="'. htmlspecialchars($film['titre']).'">
+                        </a>
                     <h3>' . htmlspecialchars($film['titre']) . '</h3>
-                    <a href="details.php?id=' . $film['id_film'] . '">Voir les détails</a>
                   </div>';
         }
         echo '</div>';
     } else {
         echo '<p>Aucun film trouvé pour ce genre.</p>';
     }
+
+    // Afficher la pagination
+    echo '<div class="pagination">';
+    if ($page_actuelle > 1) {
+        echo '<a href="?genre=' . $genre_id . '&page=' . ($page_actuelle - 1) . '" class="pagination-arrow">&#8592;</a>';
+    }
+
+    echo '<span>Page ' . $page_actuelle . ' sur ' . $total_pages . '</span>';
+
+    if ($page_actuelle < $total_pages) {
+        echo '<a href="?genre=' . $genre_id . '&page=' . ($page_actuelle + 1) . '" class="pagination-arrow">&#8594;</a>';
+    }
+    echo '</div>'; // Fin de la pagination
 
     echo '</div></main>';
 

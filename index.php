@@ -36,7 +36,7 @@ $genres_recent_film = getGenresForFilm($film_recent['id_film']); // Nous utiliso
 
 <!-- Section des 3 Genres Populaires -->
 <section class="top-genres">
-    <h2>Les 3 Genres les Plus Populaires</h2>
+    <h2>Les Genres les Plus Populaires</h2>
     <div class="genres-container">
         <?php foreach ($top_genres as $genre): ?>
             <a href="filmsGenre.php?genre=<?= $genre['id_genre']; ?>" class="genre-button">
@@ -47,6 +47,5 @@ $genres_recent_film = getGenresForFilm($film_recent['id_film']); // Nous utiliso
 </section>
 
 <?php afficherFooter(); ?>
-<script src="script.js"></script>
 </body>
 </html>

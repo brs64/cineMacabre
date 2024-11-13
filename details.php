@@ -24,7 +24,7 @@ if ($id_film > 0) {
                              alt="<?= htmlspecialchars($film['titre'] ?? 'Titre du film'); ?>" 
                              class="film-image">
                         <div class="film-description">
-                            <h2>Description</h2>
+                        <h2><?= htmlspecialchars($film['titre']); ?></h2>
                             <p><?= nl2br(htmlspecialchars($film['description'] ?? 'Description non disponible')); ?></p>
                             <p><strong>Date de sortie:</strong> <?= htmlspecialchars($film['date_sortie'] ?? 'Date non disponible'); ?></p>
 

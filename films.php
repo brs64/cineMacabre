@@ -7,7 +7,7 @@ include 'data/connBD.php';
 include 'data/requetes.php';
 
 // Logique spécifique à cette page (comme la pagination ou la récupération des films)
-$films_par_page = 18;
+$films_par_page = 20;
 $total_films = count(getFilms());
 $total_pages = ceil($total_films / $films_par_page);
 
@@ -22,12 +22,7 @@ $films = getFilmsPaginated($offset, $films_par_page);
 
 
     <?php afficherHeader(); ?>  <!-- Appel de la fonction afficherHeader() -->
-    <?php echo '<div class="search-container">
-            <form action="search.php" method="GET">
-                <input type="text" name="query" placeholder="Rechercher..." class="search-bar" id="search-bar" value="' . (isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '') . '">
-                <button type="submit" style="display:none;">Rechercher</button>
-            </form>
-        </div>' ?>
+   
     <main>
         <section class="films horror-theme">
             <div class="film-cards-container">

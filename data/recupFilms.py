@@ -26,7 +26,7 @@ def get_movie_data(movie_id):
         return None
 
 def insert_movie_into_db(movie):
-    """Insère un film dans la base de données si il n'existe pas déjà."""
+    """Insère un film dans la base de données s'il n'existe pas déjà, avec le backdrop_path et date de sortie."""
     try:
         # Vérifier si le film existe déjà dans la table films
         titre = movie.get('title')
@@ -38,19 +38,28 @@ def insert_movie_into_db(movie):
 
         # Extraction des détails
         image_url = f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}" if movie.get('poster_path') else None
+        backdrop_path = f"https://image.tmdb.org/t/p/w500{movie.get('backdrop_path')}" if movie.get('backdrop_path') else None
         description = movie.get('overview')
-        date_sortie = int(movie.get('release_date', '0000-00-00')[:4]) if movie.get('release_date') else None
+        
+        # Extraire et formater la date de sortie au format yyyy-mm-dd
+        date_sortie = movie.get('release_date')
+        if date_sortie:
+            # TMDB retourne déjà la date au format yyyy-mm-dd, donc on peut la conserver telle quelle
+            pass
+        else:
+            date_sortie = None
+        
+        # Affichage de la date de sortie avant l'insertion
+        print(f"Film: {titre}, Date de sortie: {date_sortie}")
+        
         note = movie.get('vote_average')
 
         # Insertion du film dans la table films
         cursor.execute("""
-        INSERT INTO films (titre, url_image, description, date_sortie, note)
-        VALUES (%s, %s, %s, %s, %s)
-        """, (titre, image_url, description, date_sortie, note))
+        INSERT INTO films (titre, url_image, image_fond, description, date_sortie, note)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """, (titre, image_url, backdrop_path, description, date_sortie, note))
         db_connection.commit()
-
-        # Récupérer l'ID du film inséré
-        id_film = cursor.lastrowid
 
         print(f"Film '{titre}' inséré avec succès.")
     except Exception as e:

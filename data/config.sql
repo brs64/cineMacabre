@@ -67,6 +67,24 @@ CREATE TABLE IF NOT EXISTS `genres` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
+DROP TABLE IF EXISTS `collections`;
+CREATE TABLE IF NOT EXISTS `collections` (
+  `id_collection` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) DEFAULT NULL,
+  `description` text,
+  `url_image` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_collection`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `film_collection`;
+CREATE TABLE IF NOT EXISTS `film_collection` (
+  `id_film` int NOT NULL,
+  `id_collection` int NOT NULL,
+  PRIMARY KEY (`id_film`,`id_collection`),
+  KEY `id_collection` (`id_collection`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
